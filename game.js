@@ -17,12 +17,11 @@ var Player = Class.create(Sprite, {
     var ax = 0;
     // ポーズの初期化
     this.pose = 0;
-    this.image = game.assets['chara1.gif'];
+    this.image = game.assets['chara1.png'];
     stage.addChild(this);
   },
   onenterframe : function() {
     ax = 0;
-
     // 右入力時に加速度をプラス
     if (game.input.right) {
       ax += 1;
@@ -111,7 +110,7 @@ window.onload = function() {
   // FPSを設定
   game.fps = 28;
   // 画像をプリロード
-  game.preload('chara1.gif', 'map2.gif');
+  game.preload('chara1.png', 'map2.gif');
   stage = new Group();
 
   game.onload = function() {
