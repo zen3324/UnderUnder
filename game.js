@@ -37,14 +37,15 @@ var Player = Class.create(Sprite, {
     if (ax < 0) {
       this.scaleX = -1;
     }
-
+    
     // アニメーションの設定
     if (ax != 0) {
       if (game.frame % 3 == 0) {
-        this.pose++;
+        this.pose + 1;
         this.pose %= 2;
       }
       this.frame = this.pose + 1;
+      console.log(this.frame);
     } else {
       this.frame = 0;
     }
@@ -158,16 +159,15 @@ window.onload = function() {
 
     // gameオブジェクトのイベントリスナー
     game.addEventListener('enterframe', function() {
-      label.text = bear.ax;
+      label.text = bear.pose;
     });
 
     // mapオブジェクトのイベントリスナー
     map.addEventListener('enterframe', function() {
-      stage.y -= 2;
+//      stage.y -= 1;
     })
 
     stage.addChild(map);
-    stage.addChild(bear);
     stage.addChild(label);
 
     game.rootScene.addChild(stage);
