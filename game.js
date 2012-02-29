@@ -18,7 +18,7 @@ var Player = Class.create(Sprite, {
     // ポーズの初期化
     this.pose = 0;
     this.image = game.assets['chara1.png'];
-    stage.addChild(this);
+//    stage.addChild(this);
   },
   onenterframe : function() {
     ax = 0;
@@ -40,12 +40,10 @@ var Player = Class.create(Sprite, {
     
     // アニメーションの設定
     if (ax != 0) {
-      if (game.frame % 3 == 0) {
-        this.pose + 1;
-        this.pose %= 2;
+      if (game.frame % 7 == 0) {
+        this.pose = (this.pose + 1) % 2;
       }
       this.frame = this.pose + 1;
-      console.log(this.frame);
     } else {
       this.frame = 0;
     }
@@ -164,10 +162,11 @@ window.onload = function() {
 
     // mapオブジェクトのイベントリスナー
     map.addEventListener('enterframe', function() {
-//      stage.y -= 1;
+      stage.y -= 1;
     })
 
     stage.addChild(map);
+    stage.addChild(bear);
     stage.addChild(label);
 
     game.rootScene.addChild(stage);
