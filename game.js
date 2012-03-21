@@ -18,9 +18,10 @@ var Player = Class.create(Sprite, {
     var ax = 0;
     // ポーズの初期化
     this.pose = 0;
+    this.jumping = false;
     this.image = game.assets['chara1.png'];
     // 体力
-    this.life = 10;
+    this.life = 7;
   },
   onenterframe : function() {
     ax = 0;
@@ -62,28 +63,26 @@ var Player = Class.create(Sprite, {
       ax -= this.vx;
     }
 
-    if (!this.jumping) {
-      this.vy = 0;
-      this.jumping = true;
-    }
-    this.vy += 0.5;
-
-    // 加速度をthisオブジェクトの位置に加算
+    // 加速度を位置に加算
     this.vx += ax;
     this.vx = Math.min(Math.max(this.vx, -2), 2);
     this.x += this.vx;
+    
+    // 重力の加算
+    this.vy += 0.5;
 
     var dx = this.x + this.vx + 5;
     var dy = this.y + this.vy;
     if (map.hitTest(dx, dy + this.height) || map.hitTest(dx + this.width - 10, dy + this.height)) {
       dy = Math.floor((dy + this.height) / 16) * 16 - this.height;
       this.vy = 0;
-      this.jumping = false;
       // 着地時に体力を回復
-      console.log(this.life);
-      if (this.life < 10) {
+      if (this.jumping == true && this.life < 10) {
         this.life += 1;
       }
+      this.jumping = false;
+    }else{
+      this.jumping = true
     }
     this.x = dx - 5;
     this.y = dy;
