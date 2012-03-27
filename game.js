@@ -115,7 +115,7 @@ window.onload = function() {
   // FPSを設定
   game.fps = 28;
   // 画像をプリロード
-  game.preload('chara1.png', 'map2.gif');
+  game.preload('chara1.png', 'map2.png');
   stage = new Group();
 
   game.onload = function() {
