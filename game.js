@@ -120,7 +120,7 @@ window.onload = function() {
 
   game.onload = function() {
     map = new Map(16, 16);
-    map.image = game.assets['map2.gif'];
+    map.image = game.assets['map2.png'];
 
     // マップの部品
     var mapLine0 = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ];
