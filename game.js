@@ -167,7 +167,7 @@ window.onload = function() {
 
       // TODO 落下時のゲームストップ判定（仮）
       if (player.y > -stage.y + 320) {
-        game.stop();
+        game.end();
       }
     });
 
