@@ -98,16 +98,24 @@ var Player = Class.create(Sprite, {
 });
 
 // マップ配列を元に当たり判定を返す
-function replaceCol(map) {
+function returnCol(map) {
   switch (map) {
   case -1:
     return 0;
     break;
-  case 0:
+  default:
     return 1;
     break;
   }
 }
+
+// マップ
+//function returnEffect(map){
+//  switch (map) {
+//  case 10:
+ //   return 1:
+//  }
+//}
 
 window.onload = function() {
   // Gameオブジェクト
@@ -127,7 +135,7 @@ window.onload = function() {
     var mapLine = [ [ 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
         [ -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
         [ -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
+        [ -1, -1, -1, -1, 10, 10, 10, 10, 10, 10, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
         [ -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1 ],
         [ -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1 ],
         [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1 ],
@@ -150,7 +158,7 @@ window.onload = function() {
       var repMapLine = mapBlock[i];
       var colDataLine = new Array();
       for ( var j = 0; j < 20; j++) {
-        colDataLine[j] = replaceCol(repMapLine[j]);
+        colDataLine[j] = returnCol(repMapLine[j]);
       }
       colDate[i] = colDataLine;
     }
@@ -174,10 +182,10 @@ window.onload = function() {
     // mapオブジェクトのイベントリスナー
     map.addEventListener('enterframe', function() {
       // ステージを一定の距離移動させる
-      stage.y -= 1;
+      stage.y -= 2;
 
       // ステージの移動に合わせてラベルを移動
-      label.y += 1;
+      label.y += 2;
     })
 
     // stageオブジェクトに表示するオブジェクトを追加
