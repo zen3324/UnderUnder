@@ -71,7 +71,7 @@ var Player = Class.create(Sprite, {
     this.vx += ax;
     this.vx = Math.min(Math.max(this.vx, -2), 2);
     this.x += this.vx;
-    
+
     // 重力の加算
     this.vy += 0.5;
 
@@ -82,7 +82,7 @@ var Player = Class.create(Sprite, {
     if (map.hitTest(dx, dy + this.height) || map.hitTest(dx + this.width - 10, dy + this.height)) {
       dy = Math.floor((dy + this.height) / 16) * 16 - this.height;
       this.vy = 0;
-      
+
       //マップタイル毎の処理
       if (this.jumping == true){
         var mapTile = map.checkTile(dx, dy + this.height, 0);
@@ -90,11 +90,11 @@ var Player = Class.create(Sprite, {
           case NORMAL_TILE:
             if (this.life < 10) {
             this.life += 1;
-            }
-            break;
+          }
+          break;
           case DAMAGE_TILE:
             this.life -= 4;
-            break;
+          break;
         }
       }
 
@@ -118,11 +118,11 @@ var Player = Class.create(Sprite, {
 // マップ配列を元に当たり判定を返す
 function returnCol(map) {
   switch (map) {
-  case -1:
-    return 0;
+    case -1:
+      return 0;
     break;
-  default:
-    return 1;
+    default:
+      return 1;
     break;
   }
 }
@@ -151,67 +151,67 @@ window.onload = function() {
     // マップの部品
     var mapLine0 = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ];
     var mapLine = [ [ 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, -1, -1, -1, 10, 10, 10, 10, 10, 10, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1 ],
-        [ -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1 ],
-        [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1 ],
-        [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1 ],
-        [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0 ] ];
+      [ -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
+      [ -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
+      [ -1, -1, -1, -1, 10, 10, 10, 10, 10, 10, 10, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
+      [ -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1 ],
+      [ -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1 ],
+      [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1 ],
+      [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1 ],
+      [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0 ] ];
 
-    mapBlock = new Array();
-    for ( var i = 0; i < 100; i++) {
-      mapBlock.push(mapLine[Math.floor(Math.random() * 8) + 1]);
-      var rand = Math.floor(Math.random() * 3) + 1;
-      for ( var j = 0; j < rand; j++) {
-        mapBlock.push(mapLine0);
+      mapBlock = new Array();
+      for ( var i = 0; i < 100; i++) {
+        mapBlock.push(mapLine[Math.floor(Math.random() * 8) + 1]);
+        var rand = Math.floor(Math.random() * 3) + 1;
+        for ( var j = 0; j < rand; j++) {
+          mapBlock.push(mapLine0);
+        }
       }
-    }
 
-    map.loadData(mapBlock);
+      map.loadData(mapBlock);
 
-    var colDate = new Array();
-    for ( var i = 0, n = mapBlock.length; i < n; i++) {
-      var repMapLine = mapBlock[i];
-      var colDataLine = new Array();
-      for ( var j = 0; j < 20; j++) {
-        colDataLine[j] = returnCol(repMapLine[j]);
+      var colDate = new Array();
+      for ( var i = 0, n = mapBlock.length; i < n; i++) {
+        var repMapLine = mapBlock[i];
+        var colDataLine = new Array();
+        for ( var j = 0; j < 20; j++) {
+          colDataLine[j] = returnCol(repMapLine[j]);
+        }
+        colDate[i] = colDataLine;
       }
-      colDate[i] = colDataLine;
-    }
 
-    map.collisionData = colDate;
+      map.collisionData = colDate;
 
-    var player = new Player();
-    var label = new Label();
+      var player = new Player();
+      var label = new Label();
 
-    // gameオブジェクトのイベントリスナー
-    game.addEventListener('enterframe', function() {
-      // TODO 体力の表示
-      label.text = player.life;
+      // gameオブジェクトのイベントリスナー
+      game.addEventListener('enterframe', function() {
+        // TODO 体力の表示
+        label.text = player.life;
 
-      // TODO 落下時のゲームストップ判定（仮）
-      if (player.y > -stage.y + 320) {
-        game.end();
-      }
-    });
+        // TODO 落下時のゲームストップ判定（仮）
+        if (player.y > -stage.y + 320) {
+          game.end();
+        }
+      });
 
-    // mapオブジェクトのイベントリスナー
-    map.addEventListener('enterframe', function() {
-      // ステージを一定の距離移動させる
-      stage.y -= 2;
+      // mapオブジェクトのイベントリスナー
+      map.addEventListener('enterframe', function() {
+        // ステージを一定の距離移動させる
+        stage.y -= 2;
 
-      // ステージの移動に合わせてラベルを移動
-      label.y += 2;
-    })
+        // ステージの移動に合わせてラベルを移動
+        label.y += 2;
+      })
 
-    // stageオブジェクトに表示するオブジェクトを追加
-    stage.addChild(map);
-    stage.addChild(player);
-    stage.addChild(label);
+      // stageオブジェクトに表示するオブジェクトを追加
+      stage.addChild(map);
+      stage.addChild(player);
+      stage.addChild(label);
 
-    game.rootScene.addChild(stage);
+      game.rootScene.addChild(stage);
   };
   // gameスタート
   game.debug();
