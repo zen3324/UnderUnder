@@ -4,6 +4,10 @@ var game;
 var stage;
 var map;
 
+// マップタイル定数
+const NORMAL_TILE = 0;
+const DAMAGE_TILE = 10;
+
 // Playerクラス
 var Player = Class.create(Sprite, {
   initialize : function() {
@@ -73,16 +77,30 @@ var Player = Class.create(Sprite, {
 
     var dx = this.x + this.vx + 5;
     var dy = this.y + this.vy;
+
+    //マップの衝突判定
     if (map.hitTest(dx, dy + this.height) || map.hitTest(dx + this.width - 10, dy + this.height)) {
       dy = Math.floor((dy + this.height) / 16) * 16 - this.height;
       this.vy = 0;
-      // 着地時に体力を回復
-      if (this.jumping == true && this.life < 10) {
-        this.life += 1;
+      
+      //マップタイル毎の処理
+      if (this.jumping == true){
+        var mapTile = map.checkTile(dx, dy + this.height, 0);
+        switch (mapTile) {
+          case NORMAL_TILE:
+            if (this.life < 10) {
+            this.life += 1;
+            }
+            break;
+          case DAMAGE_TILE:
+            this.life -= 4;
+            break;
+        }
       }
+
       this.jumping = false;
     }else{
-      this.jumping = true
+      this.jumping = true;
     }
     this.x = dx - 5;
     this.y = dy;
@@ -109,11 +127,11 @@ function returnCol(map) {
   }
 }
 
-// マップ
+// マップ配列を元にマップタイル判定を返す
 //function returnEffect(map){
 //  switch (map) {
 //  case 10:
- //   return 1:
+//    return 1:
 //  }
 //}
 
@@ -142,7 +160,7 @@ window.onload = function() {
         [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1 ],
         [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0 ] ];
 
-    var mapBlock = new Array();
+    mapBlock = new Array();
     for ( var i = 0; i < 100; i++) {
       mapBlock.push(mapLine[Math.floor(Math.random() * 8) + 1]);
       var rand = Math.floor(Math.random() * 3) + 1;
@@ -171,7 +189,7 @@ window.onload = function() {
     // gameオブジェクトのイベントリスナー
     game.addEventListener('enterframe', function() {
       // TODO 体力の表示
-      label.text = player.life
+      label.text = player.life;
 
       // TODO 落下時のゲームストップ判定（仮）
       if (player.y > -stage.y + 320) {

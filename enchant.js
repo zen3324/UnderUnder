@@ -1959,7 +1959,7 @@ var enchant = function (modules) {
                 return false;
             }
         },
-        checkTile: function(x, y,layer) {
+        checkTile: function(x, y, layer) {
           if (x < 0 || this.width <= x || y < 0 || this.height <= y) {
             return false;
           }
