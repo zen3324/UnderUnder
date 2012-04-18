@@ -78,20 +78,22 @@ var Player = Class.create(Sprite, {
     var dx = this.x + this.vx + 5;
     var dy = this.y + this.vy;
 
-    //マップの衝突判定
+    // マップの衝突判定
     if (map.hitTest(dx, dy + this.height) || map.hitTest(dx + this.width - 10, dy + this.height)) {
       dy = Math.floor((dy + this.height) / 16) * 16 - this.height;
       this.vy = 0;
 
-      //マップタイル毎の処理
+      // マップタイル毎の処理
       if (this.jumping == true){
         var mapTile = map.checkTile(dx, dy + this.height, 0);
         switch (mapTile) {
+          // 通常タイル
           case NORMAL_TILE:
             if (this.life < 10) {
             this.life += 1;
           }
           break;
+          // とげタイル
           case DAMAGE_TILE:
             this.life -= 4;
           break;
@@ -126,14 +128,6 @@ function returnCol(map) {
     break;
   }
 }
-
-// マップ配列を元にマップタイル判定を返す
-//function returnEffect(map){
-//  switch (map) {
-//  case 10:
-//    return 1:
-//  }
-//}
 
 window.onload = function() {
   // Gameオブジェクト
