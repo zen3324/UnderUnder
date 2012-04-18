@@ -143,7 +143,7 @@ window.onload = function() {
     map.image = game.assets['map2.png'];
 
     // マップの部品
-    var mapLine0 = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ];
+    var emptyLine = [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ];
     var mapLine = [ [ 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
       [ -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
       [ -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1 ],
@@ -154,20 +154,20 @@ window.onload = function() {
       [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1 ],
       [ -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0 ] ];
 
-      mapBlock = new Array();
+      mapData = new Array();
       for ( var i = 0; i < 100; i++) {
-        mapBlock.push(mapLine[Math.floor(Math.random() * 8) + 1]);
+        mapData.push(mapLine[Math.floor(Math.random() * 8) + 1]);
         var rand = Math.floor(Math.random() * 3) + 1;
         for ( var j = 0; j < rand; j++) {
-          mapBlock.push(mapLine0);
+          mapData.push(emptyLine);
         }
       }
 
-      map.loadData(mapBlock);
+      map.loadData(mapData);
 
       var colDate = new Array();
-      for ( var i = 0, n = mapBlock.length; i < n; i++) {
-        var repMapLine = mapBlock[i];
+      for ( var i = 0, n = mapData.length; i < n; i++) {
+        var repMapLine = mapData[i];
         var colDataLine = new Array();
         for ( var j = 0; j < 20; j++) {
           colDataLine[j] = returnCol(repMapLine[j]);
