@@ -5,6 +5,7 @@ var stage;
 var map;
 
 // マップタイル定数
+const EMPTY_TILE = -1;
 const NORMAL_TILE = 0;
 const DAMAGE_TILE = 10;
 
@@ -22,6 +23,7 @@ var Player = Class.create(Sprite, {
     var ax = 0;
     // ポーズの初期化
     this.pose = 0;
+    // 空中判定
     this.jumping = false;
     this.image = game.assets['chara1.png'];
     // 体力
@@ -85,8 +87,16 @@ var Player = Class.create(Sprite, {
 
       // マップタイル毎の処理
       if (this.jumping == true){
-        var mapTile = map.checkTile(dx, dy + this.height, 0);
-        switch (mapTile) {
+        var rightSideTile = map.checkTile(dx, dy + this.height, 0);
+        var leftSideTile = map.checkTile(dx + this.width - 10, dy + this.height, 0);
+        var targetTile = 0;
+
+        if (EMPTY_TILE != rightSideTile){
+          targetTile = rightSideTile;
+        }else if(EMPTY_TILE != leftSideTile){
+          targetTile = leftSideTile;
+        }
+        switch (targetTile) {
           // 通常タイル
           case NORMAL_TILE:
             if (this.life < 10) {
